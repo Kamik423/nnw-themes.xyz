@@ -66,7 +66,7 @@ Match the format of the other themes; including
 
 * An author and a date
 * Optionally: A description of the theme
-* One or two images of the same size set to 50% width
+* One or two images of the same size set to 50% width. Pick a random RSS article; it should optimally include a blockquote to show off that feature.
 * The NetNewsWire URL scheme.
 
 ## License
