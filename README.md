@@ -53,6 +53,8 @@ This theme does not differentiate between light and dark modes.
 
 Hans Schülein, 2022-02
 
+Modification of Appanoose with the New York system font inspired by classic print newspapers.
+
 <img src="user-themes/Druckpresse/Druckpresse-light.png" width="50%"><img src="user-themes/Druckpresse/Druckpresse-dark.png" width="50%">
 
 `netnewswire://theme/add?url=https://github.com/Kamik423/NetNewsWire-Themes/raw/main/user-themes/Druckpresse/Druckpresse.nnwtheme.zip`
