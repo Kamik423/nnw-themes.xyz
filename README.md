@@ -1,6 +1,7 @@
 # Unofficial Official NetNewsWire Themes Directory
 
 This is a theme directory for the [NetNewsWire](https://netnewswire.com) RSS reader.
+NetNewsWire 6.1 or newer required for themes.
 
 To install a theme you have to download the zip, unpack it and import it to NetNewsWire by either double-clicking it on macOS, sharing it to NetNewsWire on iOS or using the `+` button on iOS.
 NetNewsWire has an URL scheme for this but GitHub [strips non-http URL schemes](https://github.community/t/deeplink-urls-are-stripped-from-github-markdown/199464).
@@ -27,11 +28,28 @@ Ranchero Software, 2022-02
 
 `netnewswire://theme/add?url=https://github.com/Kamik423/NetNewsWire-Themes/raw/main/default-themes/Appanoose/Appanoose.nnwtheme.zip`
 
-### Promenade
+### [NewsFax](https://github.com/stuartbreckenridge/NewsFax)
 
-Stuart Breckenridge, 2022-02
+[Stuart Breckenridge](https://github.com/stuartbreckenridge), 2022-02
 
-This is the best documented theme you can use this as reference for your own theme.
+A modified version of the Promenade theme, inspired by Teletext and Ceefax services of yesteryear.
+It comes complete with Teletext style page numbers and R/G/B/Y options along the bottom of each article.
+
+Remote control not included.
+
+<img src="default-themes/NewsFax/NewsFax.png" width="50%">
+
+`netnewswire://theme/add?url=https://github.com/Kamik423/NetNewsWire-Themes/raw/main/default-themes/NewsFax/NewsFax.nnwtheme.zip`
+
+The NewsFax themes uses the ModeSeven font throughout, which is available as Freeware.
+For more information read the license information inside bundle.
+
+### [Promenade](https://github.com/stuartbreckenridge/NNWThemesPromenade)
+
+[Stuart Breckenridge](https://github.com/stuartbreckenridge), 2021-09
+
+Prominent titles, snazzy blockquotes, and simplified external links.
+Charter and Avenir for your viewing pleasure.
 
 <img src="default-themes/Promenade/Promenade-light.png" width="50%"><img src="default-themes/Promenade/Promenade-dark.png" width="50%">
 
@@ -49,9 +67,20 @@ This theme does not differentiate between light and dark modes.
 
 ## User Created Themes
 
+### [Broadsheet](https://github.com/stuartbreckenridge/NNWThemesBroadsheet)
+
+[Stuart Breckenridge](https://github.com/stuartbreckenridge), 2021-09
+
+If NetNewsWire were a newspaper—and it if were, it’d be a quality read—it might look like this. 
+The New York typeface is used throughout and the favicon has been removed.
+
+<img src="user-themes/Broadsheet/Broadsheet-light.png" width="50%"><img src="user-themes/Broadsheet/Broadsheet-dark.png" width="50%">
+
+`netnewswire://theme/add?url=https://github.com/Kamik423/NetNewsWire-Themes/raw/main/user-themes/Broadsheet/Broadsheet.nnwtheme.zip`
+
 ### Druckpresse
 
-Hans Schülein, 2022-02
+[Hans Schülein](https://github.com/kamik423), 2022-02
 
 Modification of Appanoose with the New York system font inspired by classic print newspapers.
 
@@ -59,7 +88,11 @@ Modification of Appanoose with the New York system font inspired by classic prin
 
 `netnewswire://theme/add?url=https://github.com/Kamik423/NetNewsWire-Themes/raw/main/user-themes/Druckpresse/Druckpresse.nnwtheme.zip`
 
-## Contributing your own theme
+## Creating Your Own Theme
+
+Refer to [the technote](https://github.com/Ranchero-Software/NetNewsWire/blob/main/Technotes/Themes.md) and the insanely well documented [Promenade](https://github.com/stuartbreckenridge/NNWThemesPromenade) theme.
+
+## Contributing Your Own Theme
 
 Create a pull request with your theme.
 Include the `.nnwtheme`-bundle as a zip and take screenshots of the same size in both light and dark mode (if applicable) in the same directory.
