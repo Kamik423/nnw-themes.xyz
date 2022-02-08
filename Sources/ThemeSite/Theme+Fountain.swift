@@ -153,11 +153,10 @@ private struct FountainHTMLFactory<Site: Website>: HTMLFactory {
                             .class("tag")
                             .class("tag-\(page.tag.string.replacingOccurrences(of: " ", with: "-").lowercased())")
                             .class(page.tag.is_creator ? "tag-creator" : "tag-style")
-                        Span(page.tag.is_creator ? creatorUrl(for: page.tag.string) != nil ?
+                        Span(page.tag.is_creator && creatorUrl(for: page.tag.string) != nil ?
                             Span {
-                                Text("&nbsp;")
-                                Link("(Website)", url: creatorUrl(for: page.tag.string)!)
-                            } : Span{} : Span{})
+                                Link("Creator Website", url: creatorUrl(for: page.tag.string)!).class("creator-website")
+                            } : Span{})
                     }
 
                     Link("Browse all tags and creators",
@@ -244,9 +243,13 @@ private struct ItemList<Site: Website>: Component {
 
 func makeInnerItem<Site: Website>(for item: Item<Site>, in site: Site) -> Component {
     return Article {
-        (Link(url: (item as? Item<ThemeSite>)?.metadata.themelink ?? "") { Image(url: "/add-icon.png", description: "Install Theme to NetNewsWire").class("install-button") }).style("display: \(item.is_default_theme ? "none" : "block")")
-        Link(url: (item as? Item<ThemeSite>)?.metadata.ziplink ?? "") { Image(url: "/download-icon.png", description: "Download Zip").class("install-button") }
-        Link(url: (item as? Item<ThemeSite>)?.metadata.link ?? "") { H1(item.title) }
+        Span {
+            (Link(url: (item as? Item<ThemeSite>)?.metadata.link ?? "") { Image(url: "/theme-icon.png", description: "Visit Theme") }).style("display: \((item as? Item<ThemeSite>)?.metadata.link == nil ? "none" : "block")")
+            (Link(url: creatorUrl(for: (item as? Item<ThemeSite>)?.metadata.creator ?? "") ?? "") { Image(url: "/creator-icon.png", description: "Visit Creator") }).style("display: \(creatorUrl(for: (item as? Item<ThemeSite>)?.metadata.creator ?? "") == nil ? "none" : "block")")
+            Link(url: (item as? Item<ThemeSite>)?.metadata.ziplink ?? "") { Image(url: "/download-icon.png", description: "Download Zip") }
+            (Link(url: (item as? Item<ThemeSite>)?.metadata.themelink ?? "") { Image(url: "/add-icon.png", description: "Install Theme to NetNewsWire") }).style("display: \(item.is_default_theme ? "none" : "block")")
+        }.class("theme-link-buttons")
+        Link(url: "/themes/\(item.title)") { H1(item.title) }
         // Span(" • \((item as? Item<ThemeSite>)?.metadata.creator ?? "")").class("creator")
         ItemTagList(item: item, site: site)
         Div(item.content.body).class("content")
