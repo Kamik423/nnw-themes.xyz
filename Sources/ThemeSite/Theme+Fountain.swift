@@ -250,7 +250,6 @@ func makeInnerItem<Site: Website>(for item: Item<Site>, in site: Site) -> Compon
             (Link(url: (item as? Item<ThemeSite>)?.metadata.themelink ?? "") { Image(url: "/add-icon.png", description: "Install Theme to NetNewsWire") }).style("display: \(item.is_default_theme ? "none" : "block")")
         }.class("theme-link-buttons")
         Link(url: "/themes/\(item.title)") { H1(item.title) }
-        // Span(" • \((item as? Item<ThemeSite>)?.metadata.creator ?? "")").class("creator")
         ItemTagList(item: item, site: site)
         Div(item.content.body).class("content")
     }

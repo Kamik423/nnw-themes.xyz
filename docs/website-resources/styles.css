@@ -115,10 +115,6 @@ a {
     text-decoration: none;
 }
 
-.item-page .tag-list {
-    display: inline-block;
-}
-
 .content img {
     filter: drop-shadow(0px 0px 4px #00000088);
     width: 50%;
@@ -142,9 +138,26 @@ a {
     display: inline-block;
 }
 
-.install-button:hover {
+.theme-link-buttons > a:hover {
     transition: all .2s ease-in-out;
     transform: scale(1.02);
+}
+
+@media(max-width: 800px) {
+    .theme-link-buttons {
+        display: flex;
+        width:  100%;
+        justify-content: center;
+    }
+
+    article > a:has(> h1) {
+        width: 100%;
+        text-align: center;
+    }
+
+    .tag-list {
+        text-align: center;
+    }
 }
 
 .creator {
