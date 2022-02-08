@@ -4,5 +4,5 @@
 .Trashes
 .aux_LaTeX
 
-site/.build
-side/.publish
+.build
+.publish
