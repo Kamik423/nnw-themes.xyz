@@ -1,0 +1,223 @@
+/**
+*  Modification of the Foundation Theme
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #fff;
+    color: #000;
+    font-family: -apple-system, Helvetica, Arial;
+    text-align: center;
+}
+
+.wrapper {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 40px;
+    text-align: left;
+}
+
+header {
+    background-color: #eee;
+}
+
+header .wrapper {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+header a {
+    text-decoration: none;
+}
+
+header .site-name {
+    font-size: 1.5em;
+    color: #000;
+    font-weight: bold;
+}
+
+nav {
+    margin-top: 20px;
+}
+
+nav li {
+    display: inline-block;
+    margin: 0 7px;
+    line-height: 1.5em;
+}
+
+nav li a.selected {
+    text-decoration: underline;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+h2 {
+    margin: 20px 0;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+a {
+    color: inherit;
+}
+
+.description {
+    margin-bottom: 40px;
+}
+
+.item-list > li {
+    display: block;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #eee;
+    margin-bottom: 20px;
+}
+
+.item-list > li:last-child {
+    margin-bottom: 0;
+}
+
+.item-list h1 {
+    margin-bottom: 15px;
+    font-size: 1.3em;
+}
+
+.tag-list {
+    margin-bottom: 15px;
+}
+
+.tag-list li,
+.tag {
+    display: inline-block;
+    background-color: #000;
+    color: #ddd;
+    padding: 4px 6px;
+    border-radius: 5px;
+    margin-right: 5px;
+    box-shadow: 0px 0px 3px #0004;
+}
+
+.tag-list a,
+.tag a {
+    text-decoration: none;
+}
+
+.item-page .tag-list {
+    display: inline-block;
+}
+
+.content img {
+    filter: drop-shadow(0px 0px 4px #00000088);
+    width: 50%;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+@media screen and (max-width: 800px) {
+    .content img {
+        width:  100%;
+    }
+}
+
+.install-button {
+    float: right;
+    height: 50px;
+}
+
+.install-button:hover {
+    transition: all .2s ease-in-out;
+    transform: scale(1.02);
+}
+
+.creator {
+    color: #888;
+}
+
+/*.content {
+    margin-bottom: 40px;
+}*/
+
+.browse-all {
+    display: block;
+    margin-bottom: 30px;
+}
+
+.all-tags li {
+    font-size: 1.4em;
+    margin-right: 10px;
+    padding: 6px 10px;
+}
+
+pre:has(> code) {
+    display: block;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #eee;
+    margin-bottom: 10px;
+}
+
+p > code {
+    border-radius: 4px;
+    padding: 1px;
+    background-color: #eee;
+}
+
+h1 .tag-user-theme,     li:has(> .tag-user-theme) { background: cornflowerblue; }
+h1 .tag-default-theme,  li:has(> .tag-default-theme) { background: gold; color: black; }
+
+h1 .tag-dark-only,      li:has(> .tag-dark-only) { background: midnightblue; }
+h1 .tag-light-only,     li:has(> .tag-light-only) { background: moccasin; color: black; }
+h1 .tag-light-and-dark, li:has(> .tag-light-and-dark) { background: linear-gradient(120deg, goldenrod 0%, midnightblue 100%); color: white; }
+
+h1 .tag-creator,        li:has(> .tag-creator) {
+    background: darkorchid;
+}
+h1 .tag-creator::before, li:has(> .tag-creator)::before {
+    content:"👤 ";
+}
+
+footer {
+    color: #8a8a8a;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #222;
+    }
+
+    body,
+    header .site-name {
+        color: #ddd;
+    }
+
+    .item-list > li {
+        background-color: #333;
+    }
+
+   pre:has(> code), p > code {
+        background-color: #333;
+    }
+
+    header {
+        background-color: #000;
+    }
+}
+
+@media(max-width: 600px) {
+    .wrapper {
+        padding: 40px 20px;
+    }
+}
