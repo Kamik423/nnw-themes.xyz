@@ -71,7 +71,7 @@ This theme does not differentiate between light and dark modes.
 
 [Stuart Breckenridge](https://github.com/stuartbreckenridge), 2021-09
 
-If NetNewsWire were a newspaper—and it if were, it’d be a quality read—it might look like this. 
+If NetNewsWire were a newspaper—and it if were, it’d be a quality read—it might look like this.
 The New York typeface is used throughout and the favicon has been removed.
 
 <img src="user-themes/Broadsheet/Broadsheet-light.png" width="50%"><img src="user-themes/Broadsheet/Broadsheet-dark.png" width="50%">

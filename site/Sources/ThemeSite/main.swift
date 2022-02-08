@@ -16,7 +16,7 @@ struct ThemeSite: Website {
     }
 
     // Update these properties to configure your website:
-    var url = URL(string: "https://your-website-url.com")!
+    var url = URL(string: "https://nnw-themes.xyz/")!
     var name = "Unofficial Official NetNewsWire Themes Directory"
     var description = ""
     var language: Language { .english }
@@ -56,11 +56,7 @@ try ThemeSite().publish(
                         )
                     }
                 }
-            },
-        .step(named: "Test") { context in
-                let allItems = context.sections.flatMap { $0.items }
-                print(allItems[0].metadata)
-        }
+            }
     ]
 )
 
