@@ -161,6 +161,20 @@ a {
     padding: 6px 10px;
 }
 
+pre:has(> code) {
+    display: block;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #eee;
+    margin-bottom: 10px;
+}
+
+p > code {
+    border-radius: 4px;
+    padding: 1px;
+    background-color: #eee;
+}
+
 h1 .tag-user-theme,
 li:has(> .tag-user-theme) { background: cornflowerblue; }
 h1 .tag-default-theme,
@@ -188,6 +202,10 @@ footer {
     }
 
     .item-list > li {
+        background-color: #333;
+    }
+
+   pre:has(> code), p > code {
         background-color: #333;
     }
 
