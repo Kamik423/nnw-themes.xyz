@@ -91,6 +91,7 @@ private struct FountainHTMLFactory<Site: Website>: HTMLFactory {
                 SiteHeader(context: context, selectedSelectionID: nil)
                 Wrapper {
                     H1("Browse all tags and creators")
+                    H2("Theme origin:")
                     Paragraph{
                         List(page.tags.filter({theme_modes.contains($0.string)}).sorted()) { tag in
                             ListItem {
@@ -104,6 +105,7 @@ private struct FountainHTMLFactory<Site: Website>: HTMLFactory {
                         }
                         .class("all-tags")
                     }
+                    H2("Supported UI themes:")
                     Paragraph{
                         List(page.tags.filter({light_modes.contains($0.string)}).sorted()) { tag in
                             ListItem {
@@ -117,6 +119,7 @@ private struct FountainHTMLFactory<Site: Website>: HTMLFactory {
                         }
                         .class("all-tags")
                     }
+                    H2("Creator:")
                     Paragraph{
                         List(page.tags.filter({$0.is_creator}).sorted()) { tag in
                             ListItem {
