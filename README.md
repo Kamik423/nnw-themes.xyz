@@ -1,6 +1,6 @@
 # Unofficial Official NetNewsWire Themes Directory
 
-This is the source code for [https://nnw-themes.xyz].
+This is the source code for https://nnw-themes.xyz.
 It is generated using [Publish](https://github.com/johnsundell/publish).
 
 ## License
