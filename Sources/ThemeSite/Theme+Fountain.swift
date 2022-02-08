@@ -241,7 +241,8 @@ private struct ItemList<Site: Website>: Component {
 
 func makeInnerItem<Site: Website>(for item: Item<Site>, in site: Site) -> Component {
     return Article {
-        Link(url: (item as? Item<ThemeSite>)?.metadata.themelink ?? "") { Image(url: "/add-icon.png", description: "Install Theme to NetNewsWire").class("install-button") }
+        (Link(url: (item as? Item<ThemeSite>)?.metadata.themelink ?? "") { Image(url: "/add-icon.png", description: "Install Theme to NetNewsWire").class("install-button") }).style("display: \(item.is_default_theme ? "none" : "block")")
+        Link(url: (item as? Item<ThemeSite>)?.metadata.ziplink ?? "") { Image(url: "/download-icon.png", description: "Download Zip").class("install-button") }
         Link(url: (item as? Item<ThemeSite>)?.metadata.link ?? "") { H1(item.title) }
         // Span(" • \((item as? Item<ThemeSite>)?.metadata.creator ?? "")").class("creator")
         ItemTagList(item: item, site: site)

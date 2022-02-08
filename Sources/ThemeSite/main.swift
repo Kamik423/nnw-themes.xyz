@@ -14,7 +14,8 @@ struct ThemeSite: Website {
     struct ItemMetadata: WebsiteItemMetadata {
         // Add any site-specific metadata that you want to use here.
         var creator: String
-        var themelink: String
+        var themelink: String?
+        var ziplink: String?
         var link: String?
     }
 
@@ -26,13 +27,20 @@ struct ThemeSite: Website {
     var imagePath: Path? { nil }
 }
 
-let theme_modes = ["User Theme", "Default Theme"]
+let default_theme_tag = "Default Theme"
+let theme_modes = ["User Theme", default_theme_tag]
 let light_modes = ["Light and Dark", "Dark Only", "Light Only"]
 let all_tags = theme_modes + light_modes
 
 extension Tag {
     var is_creator: Bool {
         return !all_tags.contains(self.string)
+    }
+}
+
+extension Item {
+    var is_default_theme: Bool {
+        return self.tags.map(\.string).contains(default_theme_tag)
     }
 }
 
@@ -72,6 +80,27 @@ try ThemeSite().publish(
                 section.mutateItems { item in
                     item.tags.insert(Tag(item.metadata.creator), at: 0)
                 }
+            }
+        },
+        .step(named: "Create Links") { context in
+            var error: PublishingError? = nil
+            context.mutateAllSections { section in
+                section.mutateItems { item in
+                    let file_url = "\(item.title)/\(item.title).nnwtheme.zip"
+                    let web_url = "https://nnw-themes.xyz/\(file_url)"
+                    item.metadata.ziplink = web_url
+                    item.metadata.themelink = "netnewswire://theme/add?url=\(web_url)"
+                    // Couldn't get throwing here to work
+                    if (try? Data(contentsOf: URL(fileURLWithPath: "Resources/\(file_url)"))) == nil {
+                        error = PublishingError(
+                            path: item.path,
+                            infoMessage: "Theme could not be located but was expected at Resources/\(file_url)."
+                        )
+                    }
+                }
+            }
+            if let error = error {
+                throw error
             }
         }
     ]

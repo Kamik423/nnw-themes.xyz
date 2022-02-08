@@ -8,13 +8,13 @@ Refer to the technote and the insanely well documented Promenade theme.
 
 Create a pull request with your theme on [the GitHub repo](https://github.com/Kamik423/NetNewsWire-Themes).
 Include the .nnwtheme-bundle as a zip and take screenshots of the same size in both light and dark mode (if applicable) in the `Resources/YourThemeName` directory.
+Make sure the spelling of your theme name is consistent, including capitalization.
 Match the format of the other themes by creating a MarkDown file in `Content`, matching this format:
 
 ```
 ---
 date: YYYY-MM-DD HH-MM
 creator: Your Name
-themelink: netnewswire://theme/add?url=https://nnw-themes.xyz/ThemeName/ThemeName.nnwtheme.zip
 tags: Theme Mode Tag, Theme Color Tag
 link: OptionalLinkToThemeWebsite.com
 ---

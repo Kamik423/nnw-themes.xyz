@@ -134,7 +134,7 @@ a {
 
 .install-button {
     float: right;
-    width: 200px;
+    height: 50px;
 }
 
 .install-button:hover {
