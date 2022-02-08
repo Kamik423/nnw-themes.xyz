@@ -1,11 +1,7 @@
 # Unofficial Official NetNewsWire Themes Directory
 
-This is a theme directory for the [NetNewsWire](https://netnewswire.com) RSS reader.
-NetNewsWire 6.1 or newer required for themes.
-
-To install a theme you have to download the zip, unpack it and import it to NetNewsWire by either double-clicking it on macOS, sharing it to NetNewsWire on iOS or using the `+` button on iOS.
-NetNewsWire has an URL scheme for this but GitHub [strips non-http URL schemes](https://github.community/t/deeplink-urls-are-stripped-from-github-markdown/199464).
-The install URL is included as text, you can copy it and open it your browser.
+This is the source code for [https://nnw-themes.xyz].
+It is generated using [Publish](https://github.com/johnsundell/publish).
 
 ## Preinstalled Themes
 

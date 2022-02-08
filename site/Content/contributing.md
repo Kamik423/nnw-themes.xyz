@@ -16,6 +16,7 @@ date: YYYY-MM-DD HH-MM
 creator: Your Name
 themelink: netnewswire://theme/add?url=https://nnw-themes.xyz/ThemeName/ThemeName.nnwtheme.zip
 tags: Theme Mode Tag, Theme Color Tag
+link: OptionalLinkToThemeWebsite.com
 ---
 
 Put an optional description paragraph here.
@@ -41,6 +42,11 @@ brew install publish
 ```
 
 If this is beyond your capabilities that is ok, please note so in the pull request.
+
+## Linking Your Website
+
+You can link a personal website by adding your name to the `Content/websites.json` file.
+To link a website for your theme fill in the `link` tag.
 
 ## License
 

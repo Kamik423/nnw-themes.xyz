@@ -3,6 +3,7 @@ date: 2022-02-04 00:00
 creator: Stuart Breckenridge
 themelink: netnewswire://theme/add?url=https://nnw-themes.xyz/NewsFax/NewsFax.nnwtheme.zip
 tags: Default Theme, Dark Only
+link: https://github.com/stuartbreckenridge/NewsFax
 ---
 
 A modified version of the Promenade theme, inspired by Teletext and Ceefax services of yesteryear.

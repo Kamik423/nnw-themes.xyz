@@ -175,17 +175,19 @@ p > code {
     background-color: #eee;
 }
 
-h1 .tag-user-theme,
-li:has(> .tag-user-theme) { background: cornflowerblue; }
-h1 .tag-default-theme,
-li:has(> .tag-default-theme) { background: gold; color: black; }
+h1 .tag-user-theme,     li:has(> .tag-user-theme) { background: cornflowerblue; }
+h1 .tag-default-theme,  li:has(> .tag-default-theme) { background: gold; color: black; }
 
-h1 .tag-dark-only,
-li:has(> .tag-dark-only) { background: midnightblue; }
-h1 .tag-light-only,
-li:has(> .tag-light-only) { background: moccasin; color: black; }
-h1 .tag-light-and-dark,
-li:has(> .tag-light-and-dark) { background: linear-gradient(120deg, goldenrod 0%, midnightblue 100%); color: white; }
+h1 .tag-dark-only,      li:has(> .tag-dark-only) { background: midnightblue; }
+h1 .tag-light-only,     li:has(> .tag-light-only) { background: moccasin; color: black; }
+h1 .tag-light-and-dark, li:has(> .tag-light-and-dark) { background: linear-gradient(120deg, goldenrod 0%, midnightblue 100%); color: white; }
+
+h1 .tag-creator,        li:has(> .tag-creator) {
+    background: darkorchid;
+}
+h1 .tag-creator::before, li:has(> .tag-creator)::before {
+    content:"👤 ";
+}
 
 footer {
     color: #8a8a8a;

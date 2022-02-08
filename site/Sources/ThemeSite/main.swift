@@ -15,6 +15,7 @@ struct ThemeSite: Website {
         // Add any site-specific metadata that you want to use here.
         var creator: String
         var themelink: String
+        var link: String?
     }
 
     // Update these properties to configure your website:
@@ -25,15 +26,22 @@ struct ThemeSite: Website {
     var imagePath: Path? { nil }
 }
 
+let theme_modes = ["User Theme", "Default Theme"]
+let light_modes = ["Light and Dark", "Dark Only", "Light Only"]
+let all_tags = theme_modes + light_modes
+
+extension Tag {
+    var is_creator: Bool {
+        return !all_tags.contains(self.string)
+    }
+}
+
 // This will generate your website using the built-in Foundation theme:
 try ThemeSite().publish(
     withTheme: .fountain,
     additionalSteps: [
         .step(named: "Tag Validation") { context in
                 let allItems = context.sections.flatMap { $0.items }
-                let theme_modes = ["User Theme", "Default Theme"]
-                let light_modes = ["Light and Dark", "Dark Only", "Light Only"]
-                let all_tags = theme_modes + light_modes
                 for item in allItems {
                     // All tags must be known tags
                     let incorrect_tag = item.tags.first(where: { !all_tags.contains($0.string) } )
@@ -58,7 +66,14 @@ try ThemeSite().publish(
                         )
                     }
                 }
+            },
+        .step(named: "Create Creators") { context in
+            context.mutateAllSections { section in
+                section.mutateItems { item in
+                    item.tags.insert(Tag(item.metadata.creator), at: 0)
+                }
             }
+        }
     ]
 )
 

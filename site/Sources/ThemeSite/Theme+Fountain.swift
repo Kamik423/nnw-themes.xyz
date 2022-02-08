@@ -90,17 +90,46 @@ private struct FountainHTMLFactory<Site: Website>: HTMLFactory {
             .body {
                 SiteHeader(context: context, selectedSelectionID: nil)
                 Wrapper {
-                    H1("Browse all tags")
-                    List(page.tags.sorted()) { tag in
-                        ListItem {
-                            Link(tag.string,
-                                 url: context.site.path(for: tag).absoluteString
-                            )
-                            .class("tag-\(tag.string.replacingOccurrences(of: " ", with: "-").lowercased())")
+                    H1("Browse all tags and creators")
+                    Paragraph{
+                        List(page.tags.filter({theme_modes.contains($0.string)}).sorted()) { tag in
+                            ListItem {
+                                Link(tag.string,
+                                     url: context.site.path(for: tag).absoluteString
+                                )
+                                .class("tag-\(tag.string.replacingOccurrences(of: " ", with: "-").lowercased())")
+                                .class("tag-style")
+                            }
+                            .class("tag")
                         }
-                        .class("tag")
+                        .class("all-tags")
                     }
-                    .class("all-tags")
+                    Paragraph{
+                        List(page.tags.filter({light_modes.contains($0.string)}).sorted()) { tag in
+                            ListItem {
+                                Link(tag.string,
+                                     url: context.site.path(for: tag).absoluteString
+                                )
+                                .class("tag-\(tag.string.replacingOccurrences(of: " ", with: "-").lowercased())")
+                                .class("tag-style")
+                            }
+                            .class("tag")
+                        }
+                        .class("all-tags")
+                    }
+                    Paragraph{
+                        List(page.tags.filter({$0.is_creator}).sorted()) { tag in
+                            ListItem {
+                                Link(tag.string,
+                                     url: context.site.path(for: tag).absoluteString
+                                )
+                                .class("tag-\(tag.string.replacingOccurrences(of: " ", with: "-").lowercased())")
+                                .class("tag-creator")
+                            }
+                            .class("tag")
+                        }
+                        .class("all-tags")
+                    }
                 }
                 SiteFooter()
             }
@@ -116,13 +145,19 @@ private struct FountainHTMLFactory<Site: Website>: HTMLFactory {
                 SiteHeader(context: context, selectedSelectionID: nil)
                 Wrapper {
                     H1 {
-                        Text("Tagged with ")
+                        Text("Created by ")
                         Span(page.tag.string)
                             .class("tag")
                             .class("tag-\(page.tag.string.replacingOccurrences(of: " ", with: "-").lowercased())")
+                            .class(page.tag.is_creator ? "tag-creator" : "tag-style")
+                        Span(page.tag.is_creator ? creatorUrl(for: page.tag.string) != nil ?
+                            Span {
+                                Text("&nbsp;")
+                                Link("(Website)", url: creatorUrl(for: page.tag.string)!)
+                            } : Span{} : Span{})
                     }
 
-                    Link("Browse all tags",
+                    Link("Browse all tags and creators",
                         url: context.site.tagListPath.absoluteString
                     )
                     .class("browse-all")
@@ -140,6 +175,16 @@ private struct FountainHTMLFactory<Site: Website>: HTMLFactory {
             }
         )
     }
+}
+
+func creatorUrl(for creator: String) -> String? {
+    let url =  try? JSONDecoder().decode([String: String].self, from: getFile(named: "Content/websites.json") ?? "{}".data(using: .utf8)!)[creator]
+    if url == "" { return nil }
+    return url
+}
+
+func getFile(named name: String) -> Data? {
+    try? Data(contentsOf: URL(fileURLWithPath: name))
 }
 
 private struct Wrapper: ComponentContainer {
@@ -197,8 +242,8 @@ private struct ItemList<Site: Website>: Component {
 func makeInnerItem<Site: Website>(for item: Item<Site>, in site: Site) -> Component {
     return Article {
         Link(url: (item as? Item<ThemeSite>)?.metadata.themelink ?? "") { Image(url: "/add-icon.png", description: "Install Theme to NetNewsWire").class("install-button") }
-        H1(item.title).style("display: inline;")
-        Span(" • \((item as? Item<ThemeSite>)?.metadata.creator ?? "")").class("creator")
+        Link(url: (item as? Item<ThemeSite>)?.metadata.link ?? "") { H1(item.title) }
+        // Span(" • \((item as? Item<ThemeSite>)?.metadata.creator ?? "")").class("creator")
         ItemTagList(item: item, site: site)
         Div(item.content.body).class("content")
     }
@@ -211,7 +256,8 @@ private struct ItemTagList<Site: Website>: Component {
     var body: Component {
         List(item.tags) { tag in
             Link(tag.string, url: site.path(for: tag).absoluteString)
-            .class("tag-\(tag.string.replacingOccurrences(of: " ", with: "-").lowercased())")
+                .class("tag-\(tag.string.replacingOccurrences(of: " ", with: "-").lowercased())")
+                .class(tag.is_creator ? "tag-creator" : "tag-style")
         }
         .class("tag-list")
     }
