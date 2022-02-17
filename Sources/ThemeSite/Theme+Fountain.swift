@@ -93,15 +93,15 @@ private struct FountainHTMLFactory<Site: Website>: HTMLFactory {
                     H1("Browse all tags and creators")
                     H2("Theme origin:")
                     Paragraph{
-                        List(page.tags.filter({theme_modes.contains($0.string)}).sorted()) { TagBadge(tag: $0, site: context.site )}.class("all-tags")
+                        List(page.tags.filter({theme_modes.contains($0.string)}).sorted()) { TagBadge(tag: $0, site: context.site )}.class("tag-list")
                     }
                     H2("Supported UI themes:")
                     Paragraph{
-                        List(page.tags.filter({light_modes.contains($0.string)}).sorted()) { TagBadge(tag: $0, site: context.site )}.class("all-tags")
+                        List(page.tags.filter({light_modes.contains($0.string)}).sorted()) { TagBadge(tag: $0, site: context.site )}.class("tag-list")
                     }
                     H2("Creator:")
                     Paragraph{
-                        List(page.tags.filter({$0.is_creator}).sorted()) { TagBadge(tag: $0, site: context.site )}.class("all-tags")
+                        List(page.tags.filter({$0.is_creator}).sorted()) { TagBadge(tag: $0, site: context.site )}.class("tag-list")
                     }
                 }
                 SiteFooter()
@@ -120,13 +120,13 @@ private struct FountainHTMLFactory<Site: Website>: HTMLFactory {
                     H1 {
                         Text("Created by ")
                         TagBadge(tag: page.tag, site: context.site)
-                        if page.tag.is_creator && creatorUrl(for: page.tag.string) != nil {
-                            Span {
-                                Link(url: creatorUrl(for: page.tag.string)!) {
-                                   LinkIcon().class("illustration-icon")
-                                    Text("Creator")
-                                }.class("creator-website")
-                            }
+                    }
+                    if page.tag.is_creator && creatorUrl(for: page.tag.string) != nil {
+                        Span {
+                            Link(url: creatorUrl(for: page.tag.string)!) {
+                               LinkIcon().class("illustration-icon")
+                                Text("Creator Website")
+                            }.class("creator-website")
                         }
                     }
 
@@ -233,19 +233,29 @@ func makeInnerItem<Site: Website>(for item: Item<Site>, in site: Site) -> Compon
         Div {
             H1 { Link(item.title, url: "/themes/\(item.title)") }
             Span {
-                if let link = item.metadata.link {
-                    Link(url: link) { Image(url: "/website-resources/theme-icon.png", description: "Visit Theme") }
-                }
-                if let creator = creatorUrl(for: item.metadata.creator) {
-                    Link(url: creator) { Image(url: "/website-resources/creator-icon.png", description: "Visit Creator") }
-                }
                 Link(url: item.metadata.ziplink ?? "") { Image(url: "/website-resources/download-icon.png", description: "Download Zip") }
                 if !item.isDefaultTheme {
                     Link(url: item.metadata.themelink ?? "") { Image(url: "/website-resources/add-icon.png", description: "Install Theme to NetNewsWire") }
                 }
             }.class("theme-link-buttons")
         }.class("article-headline")
-        ItemTagList(item: item, site: site)
+        Div {
+            ItemTagList(item: item, site: site)
+            Span {
+                if let link = item.metadata.link {
+                    Link(url: link) {
+                        LinkIcon().class("illustration-icon")
+                        Text("Theme")
+                    }.class("info-link")
+                }
+                if let creator = creatorUrl(for: item.metadata.creator) {
+                    Link(url: creator) {
+                        LinkIcon().class("illustration-icon")
+                        Text("Creator")
+                    }.class("info-link")
+                }
+            }.class("info-links")
+        }.class("secondary-bar")
         Div(content: {
             Div(item.content.body)
             if (item.isMixedTheme) {

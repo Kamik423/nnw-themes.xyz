@@ -2,6 +2,10 @@
 *  Modification of the Foundation Theme
 */
 
+/*   __   ___       ___  __
+    / _` |__  |\ | |__  |__)  /\  |
+    \__> |___ | \| |___ |  \ /~~\ |___  */
+
 * {
     margin: 0;
     padding: 0;
@@ -15,13 +19,30 @@ body {
     text-align: center;
 }
 
-.wrapper {
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 40px;
-    text-align: left;
+h1 {
+    margin-bottom: 20px;
+    font-size: 2em;
 }
+
+h2 {
+    margin: 20px 0;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+a {
+    color: inherit;
+}
+
+.wrapper > h1 {
+    line-height: 40pt;
+}
+
+/*        ___       __   ___  __
+    |__| |__   /\  |  \ |__  |__)
+    |  | |___ /~~\ |__/ |___ |  \   */
 
 header {
     background-color: #eee;
@@ -57,26 +78,44 @@ nav li a.selected {
     text-decoration: underline;
 }
 
-h1 {
-    margin-bottom: 20px;
-    font-size: 2em;
+/*                                   __   __          __
+     |\/|  /\  | |\ |     |\/|  /\  |__) / _` | |\ | /__`
+     |  | /~~\ | | \|     |  | /~~\ |  \ \__> | | \| .__/   */
+
+.wrapper {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 40px;
+    text-align: left;
 }
 
-h2 {
-    margin: 20px 0;
+@media(max-width: 600px) {
+    .wrapper {
+        padding: 40px 20px;
+    }
 }
 
-p {
-    margin-bottom: 10px;
-}
-
-a {
-    color: inherit;
-}
+/*           __   __
+     |\/| | /__` /  `
+     |  | | .__/ \__,   */
 
 .description {
     margin-bottom: 40px;
 }
+
+.creator-website {
+    float: right;
+}
+
+.browse-all {
+    display: block;
+    margin-bottom: 30px;
+}
+
+/*        __  ___    __        ___                   __       ___
+     /\  |__)  |  | /  ` |    |__     |     /\  \ / /  \ |  |  |
+    /~~\ |  \  |  | \__, |___ |___    |___ /~~\  |  \__/ \__/  |   */
 
 .item-list > li {
     display: block;
@@ -99,16 +138,13 @@ a {
     border-bottom-color: #ddd;
 }
 
-.article-headline {
-    justify-content: space-between;
-    display: flex;
-    /*vertical-align: text-bottom;*/
-    align-items: end;
-}
-
 .item-list > li:last-child {
     margin-bottom: 0;
 }
+
+/*        __  ___    __        ___    ___   ___       ___
+     /\  |__)  |  | /  ` |    |__      |  |  |  |    |__
+    /~~\ |  \  |  | \__, |___ |___     |  |  |  |___ |___  */
 
 article h1 {
     margin-bottom: 0px;
@@ -121,38 +157,13 @@ article h1 a {
     text-decoration: none;
 }
 
-.content .screenshot {
-    filter: drop-shadow(0px 0px 4px #00000088);
-    width: calc(50% - 5px);
-    border-radius: 8px;
-}
-
-.content .first-screenshot {
-    margin-right: 5px;
-}
-
-.content .second-screenshot {
-    margin-left: 5px;
-}
-
-@media screen and (max-width: 800px) {
-    .content img {
-        width:  100%;
-    }
-
-    article h1 {
-        display: block;
-        margin-bottom: 5px;
-    }
-
-    .article-headline {
-        display: block;
-    }
+.article-headline {
+    justify-content: space-between;
+    display: flex;
+    align-items: end;
 }
 
 .theme-link-buttons {
-    /*padding-bottom: 10px;*/
-    /*text-align: right;*/
     display: inline-block;
     line-height: 50px;
     height: 50px;
@@ -178,30 +189,19 @@ article h1 a {
     article h1 {
         width: 100%;
         text-align: center;
+        display: block;
+        margin-bottom: 0px;
     }
 
-    .tag-list {
-        text-align: center;
+    .article-headline {
+        display: block;
     }
 }
 
-.creator {
-    color: #888;
-}
+/*   __   __   __   ___
+    /  ` /  \ |  \ |__
+    \__, \__/ |__/ |___  */
 
-.creator-website {
-    float: right;
-}
-
-.browse-all {
-    display: block;
-    margin-bottom: 30px;
-}
-
-a .illustration-icon {
-    height: 1.5ex;
-    margin-right: 0.25em;
-}
 
 pre:has(> code) {
     display: block;
@@ -216,19 +216,79 @@ p > code {
     background-color: #eee;
 }
 
+/*   __   __   __   ___  ___       __        __  ___  __
+    /__` /  ` |__) |__  |__  |\ | /__` |__| /  \  |  /__`
+    .__/ \__, |  \ |___ |___ | \| .__/ |  | \__/  |  .__/   */
+
+.content .first-screenshot {
+    margin-right: 5px;
+}
+
+.content .second-screenshot {
+    margin-left: 5px;
+}
+
+.content .screenshot {
+    filter: drop-shadow(0px 0px 4px #00000088);
+    width: calc(50% - 5px);
+    border-radius: 8px;
+}
+
+@media(max-width: 800px) {
+    .content .screenshot {
+        width: 100%;
+        margin: 0pt;
+    }
+
+    .content .second-screenshot {
+        margin-top: 5pt;
+    }
+}
+
+/*   __   ___  __   __        __        __          __        __
+    /__` |__  /  ` /  \ |\ | |  \  /\  |__) \ /    |__)  /\  |__)
+    .__/ |___ \__, \__/ | \| |__/ /~~\ |  \  |     |__) /~~\ |  \  */
+
+.secondary-bar {
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.secondary-bar > * {
+    display: inline-block;
+}
+
+.info-links > a {
+    text-decoration: none;
+    margin-left: 1em;
+}
+
+@media(max-width: 800px) {
+    .secondary-bar {
+        display: block;
+    }
+    .secondary-bar > * {
+        display: block;
+        text-align: center;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+.illustration-icon > img{
+    height: 1.5ex;
+    margin-right: 0.2em;
+}
+
 /*  ___       __   __
      |   /\  / _` /__`
      |  /~~\ \__> .__/    */
 
-.tag-list {
-    margin-bottom: 15px;
-}
 .tag-list li {
     display: inline-block;
     margin: 10px 0px;
-}
-.all-tags li {
-    font-size: 1.4em;
 }
 .tag {
     background-color: #000;
@@ -239,6 +299,7 @@ p > code {
     box-shadow: 0px 0px 0.5ex #0004;
     text-decoration: none;
     font-weight: normal;
+    white-space: nowrap;
 }
 .tag:hover {
     transition: all .1s ease-in-out;
@@ -311,16 +372,5 @@ footer {
 
     header {
         background-color: #000;
-    }
-}
-
-/*   __   ___  __   __   __        __          ___
-    |__) |__  /__` |__) /  \ |\ | /__` | \  / |__
-    |  \ |___ .__/ |    \__/ | \| .__/ |  \/  |___  */
-
-
-@media(max-width: 600px) {
-    .wrapper {
-        padding: 40px 20px;
     }
 }
