@@ -20,14 +20,12 @@ link: OptionalLinkToThemeWebsite.com
 ---
 
 Put an optional description paragraph here.
-
-![light](/ThemeName/ThemeName-light.png)
-![dark](/ThemeName/ThemeName-dark.png)
 ```
 
 The tags need to contain either `User Theme` or `Default Theme` depending on whether it comes preinstalled or not.
 It also needs to have one of `Light and Dark`, `Dark Only` or `Light Only`, depending on whether it has good support for these modes.
-This should also be reflected in the screenshots.
+The screenshots should be in the same folder as the theme zip and named `ThemeName-light.png` and `ThemeName-dark.png` respectively.
+If you only support light or dark mode just name it `ThemeName.png`.
 
 Then build the site using
 

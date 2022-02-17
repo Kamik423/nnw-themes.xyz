@@ -93,45 +93,15 @@ private struct FountainHTMLFactory<Site: Website>: HTMLFactory {
                     H1("Browse all tags and creators")
                     H2("Theme origin:")
                     Paragraph{
-                        List(page.tags.filter({theme_modes.contains($0.string)}).sorted()) { tag in
-                            ListItem {
-                                Link(tag.string,
-                                     url: context.site.path(for: tag).absoluteString
-                                )
-                                .class("tag-\(tag.string.replacingOccurrences(of: " ", with: "-").lowercased())")
-                                .class("tag-style")
-                            }
-                            .class("tag")
-                        }
-                        .class("all-tags")
+                        List(page.tags.filter({theme_modes.contains($0.string)}).sorted()) { TagBadge(tag: $0, site: context.site )}.class("all-tags")
                     }
                     H2("Supported UI themes:")
                     Paragraph{
-                        List(page.tags.filter({light_modes.contains($0.string)}).sorted()) { tag in
-                            ListItem {
-                                Link(tag.string,
-                                     url: context.site.path(for: tag).absoluteString
-                                )
-                                .class("tag-\(tag.string.replacingOccurrences(of: " ", with: "-").lowercased())")
-                                .class("tag-style")
-                            }
-                            .class("tag")
-                        }
-                        .class("all-tags")
+                        List(page.tags.filter({light_modes.contains($0.string)}).sorted()) { TagBadge(tag: $0, site: context.site )}.class("all-tags")
                     }
                     H2("Creator:")
                     Paragraph{
-                        List(page.tags.filter({$0.is_creator}).sorted()) { tag in
-                            ListItem {
-                                Link(tag.string,
-                                     url: context.site.path(for: tag).absoluteString
-                                )
-                                .class("tag-\(tag.string.replacingOccurrences(of: " ", with: "-").lowercased())")
-                                .class("tag-creator")
-                            }
-                            .class("tag")
-                        }
-                        .class("all-tags")
+                        List(page.tags.filter({$0.is_creator}).sorted()) { TagBadge(tag: $0, site: context.site )}.class("all-tags")
                     }
                 }
                 SiteFooter()
@@ -149,20 +119,19 @@ private struct FountainHTMLFactory<Site: Website>: HTMLFactory {
                 Wrapper {
                     H1 {
                         Text("Created by ")
-                        Span(page.tag.string)
-                            .class("tag")
-                            .class("tag-\(page.tag.string.replacingOccurrences(of: " ", with: "-").lowercased())")
-                            .class(page.tag.is_creator ? "tag-creator" : "tag-style")
-                        Span(page.tag.is_creator && creatorUrl(for: page.tag.string) != nil ?
+                        TagBadge(tag: page.tag, site: context.site)
+                        if page.tag.is_creator && creatorUrl(for: page.tag.string) != nil {
                             Span {
-                                Link("Creator Website", url: creatorUrl(for: page.tag.string)!).class("creator-website")
-                            } : Span{})
+                                Link(url: creatorUrl(for: page.tag.string)!) {
+                                   LinkIcon().class("illustration-icon")
+                                    Text("Creator")
+                                }.class("creator-website")
+                            }
+                        }
                     }
 
-                    Link("Browse all tags and creators",
-                        url: context.site.tagListPath.absoluteString
-                    )
-                    .class("browse-all")
+                    Link("Browse all tags and creators",  url: context.site.tagListPath.absoluteString)
+                        .class("browse-all")
 
                     ItemList(
                         items: context.items(
@@ -175,6 +144,27 @@ private struct FountainHTMLFactory<Site: Website>: HTMLFactory {
                 }
                 SiteFooter()
             }
+        )
+    }
+}
+
+private struct LinkIcon: Component {
+    var body: Component {
+        LightDarkPicture(
+            lightModePicture: "/website-resources/link-icon-light.svg",
+            darkModePicture: "/website-resources/link-icon-dark.svg"
+        )
+    }
+}
+
+private struct LightDarkPicture: Component {
+    var lightModePicture: String
+    var darkModePicture: String
+
+    var body: Component {
+        Node.picture(
+            .source(.srcset(darkModePicture), .media("(prefers-color-scheme: dark)")),
+            .img(.src(lightModePicture))
         )
     }
 }
@@ -218,11 +208,8 @@ private struct SiteHeader<Site: Website>: Component {
         Navigation {
             List(Site.SectionID.allCases) { sectionID in
                 let section = context.sections[sectionID]
-
-                return Link(section.title,
-                    url: section.path.absoluteString
-                )
-                .class(sectionID == selectedSelectionID ? "selected" : "")
+                return Link(section.title, url: section.path.absoluteString)
+                    .class(sectionID == selectedSelectionID ? "selected" : "")
             }
         }
     }
@@ -235,23 +222,39 @@ private struct ItemList<Site: Website>: Component {
     var body: Component {
         List(items) { item in
             makeInnerItem(for: item, in: site)
-        }
-        .class("item-list")
+        }.class("item-list")
     }
 }
 
-
 func makeInnerItem<Site: Website>(for item: Item<Site>, in site: Site) -> Component {
+    guard let site = site as? ThemeSite else { return Article { } }
+    guard let item = item as? Item<ThemeSite> else { return Article { } }
     return Article {
-        Span {
-            (Link(url: (item as? Item<ThemeSite>)?.metadata.link ?? "") { Image(url: "/website-resources/theme-icon.png", description: "Visit Theme") }).style("display: \((item as? Item<ThemeSite>)?.metadata.link == nil ? "none" : "block")")
-            (Link(url: creatorUrl(for: (item as? Item<ThemeSite>)?.metadata.creator ?? "") ?? "") { Image(url: "/website-resources/creator-icon.png", description: "Visit Creator") }).style("display: \(creatorUrl(for: (item as? Item<ThemeSite>)?.metadata.creator ?? "") == nil ? "none" : "block")")
-            Link(url: (item as? Item<ThemeSite>)?.metadata.ziplink ?? "") { Image(url: "/website-resources/download-icon.png", description: "Download Zip") }
-            (Link(url: (item as? Item<ThemeSite>)?.metadata.themelink ?? "") { Image(url: "/website-resources/add-icon.png", description: "Install Theme to NetNewsWire") }).style("display: \(item.is_default_theme ? "none" : "block")")
-        }.class("theme-link-buttons")
-        Link(url: "/themes/\(item.title)") { H1(item.title) }
+        Div {
+            H1 { Link(item.title, url: "/themes/\(item.title)") }
+            Span {
+                if let link = item.metadata.link {
+                    Link(url: link) { Image(url: "/website-resources/theme-icon.png", description: "Visit Theme") }
+                }
+                if let creator = creatorUrl(for: item.metadata.creator) {
+                    Link(url: creator) { Image(url: "/website-resources/creator-icon.png", description: "Visit Creator") }
+                }
+                Link(url: item.metadata.ziplink ?? "") { Image(url: "/website-resources/download-icon.png", description: "Download Zip") }
+                if !item.isDefaultTheme {
+                    Link(url: item.metadata.themelink ?? "") { Image(url: "/website-resources/add-icon.png", description: "Install Theme to NetNewsWire") }
+                }
+            }.class("theme-link-buttons")
+        }.class("article-headline")
         ItemTagList(item: item, site: site)
-        Div(item.content.body).class("content")
+        Div(content: {
+            Div(item.content.body)
+            if (item.isMixedTheme) {
+                Image(url: "/\(item.title)/\(item.title)-light.png", description: "light").class("screenshot").class("first-screenshot")
+                Image(url: "/\(item.title)/\(item.title)-dark.png", description: "dark").class("screenshot").class("second-screenshot")
+            } else {
+                Image(url: "/\(item.title)/\(item.title).png", description: "screenshot").class("screenshot").class("first-screenshot")
+            }
+        }).class("content")
     }
 }
 
@@ -260,12 +263,27 @@ private struct ItemTagList<Site: Website>: Component {
     var site: Site
 
     var body: Component {
-        List(item.tags) { tag in
-            Link(tag.string, url: site.path(for: tag).absoluteString)
-                .class("tag-\(tag.string.replacingOccurrences(of: " ", with: "-").lowercased())")
-                .class(tag.is_creator ? "tag-creator" : "tag-style")
+        List(item.tags) {
+            TagBadge(tag: $0, site: site)
+        }.class("tag-list")
+    }
+}
+
+private struct TagBadge<Site: Website>: Component {
+    var tag: Tag
+    var site: Site
+
+    var body: Component {
+        guard let site = site as? ThemeSite else { return Span { } }
+        return Link(url: site.path(for: tag).absoluteString) {
+            if tag.is_creator {
+                Image(url: "/website-resources/creator.svg", description: "Creator").class("tag-icon")
+            }
+            Text(tag.string)
         }
-        .class("tag-list")
+            .class("tag")
+            .class("tag-\(tag.string.replacingOccurrences(of: " ", with: "-").lowercased())")
+            .class(tag.is_creator ? "tag-creator" : "tag-style")
     }
 }
 

@@ -7,6 +7,3 @@ link: https://github.com/stuartbreckenridge/NNWThemesPromenade
 
 Prominent titles, snazzy blockquotes, and simplified external links.
 Charter and Avenir for your viewing pleasure.
-
-![light](/Promenade/Promenade-light.png)
-![dark](/Promenade/Promenade-dark.png)

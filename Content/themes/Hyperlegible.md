@@ -6,6 +6,3 @@ tags: Default Theme, Light and Dark
 
 A variation on the default theme with the font set to [Atkinson Hyperlegible](https://brailleinstitute.org/freefont) and the font size increased.
 Both of these changes lead to a much higher readability.
-
-![light](/Hyperlegible/Hyperlegible-light.png)
-![dark](/Hyperlegible/Hyperlegible-dark.png)

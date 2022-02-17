@@ -28,8 +28,12 @@ struct ThemeSite: Website {
 }
 
 let default_theme_tag = "Default Theme"
-let theme_modes = ["User Theme", default_theme_tag]
-let light_modes = ["Light and Dark", "Dark Only", "Light Only"]
+let user_theme_tag = "User Theme"
+let theme_modes = [user_theme_tag, default_theme_tag]
+let light_theme_tag = "Light Only"
+let dark_theme_tag = "Dark Only"
+let mixed_theme_tag = "Light and Dark"
+let light_modes = [mixed_theme_tag, dark_theme_tag, light_theme_tag]
 let all_tags = theme_modes + light_modes
 
 extension Tag {
@@ -39,9 +43,15 @@ extension Tag {
 }
 
 extension Item {
-    var is_default_theme: Bool {
-        return self.tags.map(\.string).contains(default_theme_tag)
-    }
+    var isDefaultTheme: Bool { return self.tags.map(\.string).contains(default_theme_tag) }
+    var isUserTheme: Bool { return self.tags.map(\.string).contains(user_theme_tag) }
+    var isLightTheme: Bool { return self.tags.map(\.string).contains(light_theme_tag) }
+    var isDarkTheme: Bool { return self.tags.map(\.string).contains(dark_theme_tag) }
+    var isMixedTheme: Bool { return self.tags.map(\.string).contains(mixed_theme_tag) }
+}
+
+func resourceExists(at path: String) -> Bool {
+    return (try? Data(contentsOf: URL(fileURLWithPath: "Resources/\(path)"))) != nil
 }
 
 // This will generate your website using the built-in Foundation theme:
@@ -76,6 +86,7 @@ try ThemeSite().publish(
                 }
             },
         .step(named: "Create Creators") { context in
+            // Create tags for creators
             context.mutateAllSections { section in
                 section.mutateItems { item in
                     item.tags.insert(Tag(item.metadata.creator), at: 0)
@@ -83,6 +94,7 @@ try ThemeSite().publish(
             }
         },
         .step(named: "Create Links") { context in
+            // Create the download badges
             var error: PublishingError? = nil
             context.mutateAllSections { section in
                 section.mutateItems { item in
@@ -91,7 +103,7 @@ try ThemeSite().publish(
                     item.metadata.ziplink = web_url
                     item.metadata.themelink = "netnewswire://theme/add?url=\(web_url)"
                     // Couldn't get throwing here to work
-                    if (try? Data(contentsOf: URL(fileURLWithPath: "Resources/\(file_url)"))) == nil {
+                    if !resourceExists(at: file_url) {
                         error = PublishingError(
                             path: item.path,
                             infoMessage: "Theme could not be located but was expected at Resources/\(file_url)."
@@ -102,10 +114,33 @@ try ThemeSite().publish(
             if let error = error {
                 throw error
             }
+        },
+        .step(named: "Verify Screenshots") { context in
+            // Verify the screenshots exist
+            let allItems = context.sections.flatMap { $0.items }
+            for item in allItems {
+                if item.isMixedTheme {
+                    if !resourceExists(at: "\(item.title)/\(item.title)-light.png") {
+                        throw PublishingError(
+                            path: item.path,
+                            infoMessage: "Screenshot could not be located but was expected at Resources/\(item.title)/\(item.title)-light.png."
+                        )
+                    }
+                    if !resourceExists(at: "\(item.title)/\(item.title)-dark.png") {
+                        throw PublishingError(
+                            path: item.path,
+                            infoMessage: "Screenshot could not be located but was expected at Resources/\(item.title)/\(item.title)-dark.png."
+                        )
+                    }
+                } else {
+                    if !resourceExists(at: "\(item.title)/\(item.title).png") {
+                        throw PublishingError(
+                            path: item.path,
+                            infoMessage: "Screenshot could not be located but was expected at Resources/\(item.title)/\(item.title).png."
+                        )
+                    }
+                }
+            }
         }
     ]
 )
-
-extension Theme where Site == ThemeSite {
-
-}

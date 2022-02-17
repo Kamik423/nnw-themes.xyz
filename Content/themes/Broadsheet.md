@@ -7,6 +7,3 @@ link: https://github.com/stuartbreckenridge/NNWThemesBroadsheet
 
 If NetNewsWire were a newspaper—and it if were, it’d be a quality read—it might look like this.
 The New York typeface is used throughout and the favicon has been removed.
-
-![light](/Broadsheet/Broadsheet-light.png)
-![dark](/Broadsheet/Broadsheet-dark.png)
