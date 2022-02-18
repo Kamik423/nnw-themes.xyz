@@ -51,7 +51,18 @@ extension Item {
 }
 
 func resourceExists(at path: String) -> Bool {
-    return (try? Data(contentsOf: URL(fileURLWithPath: "Resources/\(path)"))) != nil
+	// APFS may be case insensitive thus this more complex process is required
+    let abspath = "\(FileManager.default.currentDirectoryPath)/Resources/\(path)"
+    var matches: Bool = false
+    let fd = open(FileManager.default.fileSystemRepresentation(withPath: abspath), O_RDONLY)
+    if fd != -1 {
+        var buffer = [CChar](repeating: 0, count: Int(MAXPATHLEN))
+        if fcntl(fd, F_GETPATH, &buffer) != -1 {
+            matches = String(cString: buffer) == abspath
+        }
+        close(fd)
+    }
+    return matches
 }
 
 // This will generate your website using the built-in Foundation theme:
