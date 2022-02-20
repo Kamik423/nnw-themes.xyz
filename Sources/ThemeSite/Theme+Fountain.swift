@@ -27,7 +27,8 @@ private struct FountainHTMLFactory<Site: Website>: HTMLFactory {
                             sortedBy: \.groupedSorting,
                             order: .ascending
                         ),
-                        site: context.site
+                        site: context.site,
+                        context: context
                     )
                 }
                 SiteFooter()
@@ -44,7 +45,7 @@ private struct FountainHTMLFactory<Site: Website>: HTMLFactory {
                 SiteHeader(context: context, selectedSelectionID: section.id)
                 Wrapper {
                     H1(section.title)
-                    ItemList(items: section.items, site: context.site)
+                    ItemList(items: section.items, site: context.site, context: context)
                 }
                 SiteFooter()
             }
@@ -61,7 +62,7 @@ private struct FountainHTMLFactory<Site: Website>: HTMLFactory {
                 .components {
                     SiteHeader(context: context, selectedSelectionID: item.sectionID)
                     Wrapper {
-                        makeInnerItem(for: item, in: context.site)
+                        makeInnerItem(for: item, in: context.site, with: context)
                     }
                     SiteFooter()
                 }
@@ -90,18 +91,18 @@ private struct FountainHTMLFactory<Site: Website>: HTMLFactory {
             .body {
                 SiteHeader(context: context, selectedSelectionID: nil)
                 Wrapper {
-                    H1("Browse all tags and creators")
-                    H2("Theme origin:")
+                    H1("Browse All Tags and Creators")
+                    H2("Theme Origins:")
                     Paragraph{
-                        List(page.tags.filter({theme_modes.contains($0.string)}).sorted()) { TagBadge(tag: $0, site: context.site )}.class("tag-list")
+                        List(page.tags.filter({theme_modes.contains($0.string)}).sorted()) { TagBadge(tag: $0, site: context.site, context: context) }.class("tag-list")
                     }
-                    H2("Supported UI themes:")
+                    H2("Supported UI Themes:")
                     Paragraph{
-                        List(page.tags.filter({light_modes.contains($0.string)}).sorted()) { TagBadge(tag: $0, site: context.site )}.class("tag-list")
+                        List(page.tags.filter({light_modes.contains($0.string)}).sorted()) { TagBadge(tag: $0, site: context.site, context: context) }.class("tag-list")
                     }
-                    H2("Creator:")
+                    H2("Creators:")
                     Paragraph{
-                        List(page.tags.filter({$0.is_creator}).sorted()) { TagBadge(tag: $0, site: context.site )}.class("tag-list")
+                        List(page.tags.filter({$0.is_creator}).sorted()) { TagBadge(tag: $0, site: context.site, context: context )}.class("tag-list")
                     }
                 }
                 SiteFooter()
@@ -119,7 +120,7 @@ private struct FountainHTMLFactory<Site: Website>: HTMLFactory {
                 Wrapper {
                     H1 {
                         Text("Created by ")
-                        TagBadge(tag: page.tag, site: context.site)
+                        TagBadge(tag: page.tag, site: context.site, context: context)
                     }
                     if page.tag.is_creator && creatorUrl(for: page.tag.string) != nil {
                         Span {
@@ -139,7 +140,8 @@ private struct FountainHTMLFactory<Site: Website>: HTMLFactory {
                             sortedBy: \.groupedSorting,
                             order: .ascending
                         ),
-                        site: context.site
+                        site: context.site,
+                        context: context
                     )
                 }
                 SiteFooter()
@@ -218,16 +220,18 @@ private struct SiteHeader<Site: Website>: Component {
 private struct ItemList<Site: Website>: Component {
     var items: [Item<Site>]
     var site: Site
+    var context: PublishingContext<Site>
 
     var body: Component {
         List(items) { item in
-            makeInnerItem(for: item, in: site)
+            makeInnerItem(for: item, in: site, with: context)
         }.class("item-list")
     }
 }
 
-func makeInnerItem<Site: Website>(for item: Item<Site>, in site: Site) -> Component {
+func makeInnerItem<Site: Website>(for item: Item<Site>, in site: Site, with context: PublishingContext<Site>) -> Component {
     guard let site = site as? ThemeSite else { return Article { } }
+    guard let context = context as? PublishingContext<ThemeSite> else { return Article { } }
     guard let item = item as? Item<ThemeSite> else { return Article { } }
     return Article {
         Div {
@@ -240,7 +244,7 @@ func makeInnerItem<Site: Website>(for item: Item<Site>, in site: Site) -> Compon
             }.class("theme-link-buttons")
         }.class("article-headline")
         Div {
-            ItemTagList(item: item, site: site)
+            ItemTagList(item: item, site: site, context: context)
             Span {
                 if let link = item.metadata.link {
                     Link(url: link) {
@@ -259,10 +263,10 @@ func makeInnerItem<Site: Website>(for item: Item<Site>, in site: Site) -> Compon
         Div(content: {
             Div(item.content.body)
             if (item.isMixedTheme) {
-                Image(url: "/\(item.title)/\(item.title)-light.png", description: "light").class("screenshot").class("first-screenshot")
-                Image(url: "/\(item.title)/\(item.title)-dark.png", description: "dark").class("screenshot").class("second-screenshot")
+                Image(url: "/themes/\(item.title)/\(item.title)-light.png", description: "light").class("screenshot").class("first-screenshot")
+                Image(url: "/themes/\(item.title)/\(item.title)-dark.png", description: "dark").class("screenshot").class("second-screenshot")
             } else {
-                Image(url: "/\(item.title)/\(item.title).png", description: "screenshot").class("screenshot").class("first-screenshot")
+                Image(url: "/themes/\(item.title)/\(item.title).png", description: "screenshot").class("screenshot").class("first-screenshot")
             }
         }).class("content")
     }
@@ -271,10 +275,11 @@ func makeInnerItem<Site: Website>(for item: Item<Site>, in site: Site) -> Compon
 private struct ItemTagList<Site: Website>: Component {
     var item: Item<Site>
     var site: Site
+    var context: PublishingContext<Site>
 
     var body: Component {
         List(item.tags) {
-            TagBadge(tag: $0, site: site)
+            TagBadge(tag: $0, site: site, context: context)
         }.class("tag-list")
     }
 }
@@ -282,6 +287,7 @@ private struct ItemTagList<Site: Website>: Component {
 private struct TagBadge<Site: Website>: Component {
     var tag: Tag
     var site: Site
+    var context: PublishingContext<Site>
 
     var body: Component {
         guard let site = site as? ThemeSite else { return Span { } }
@@ -290,6 +296,9 @@ private struct TagBadge<Site: Website>: Component {
                 Image(url: "/website-resources/creator.svg", description: "Creator").class("tag-icon")
             }
             Text(tag.string)
+            Span {
+                Text("\(context.occurances(ofTag: tag))")
+            }.class("tag-count")
         }
             .class("tag")
             .class("tag-\(tag.string.replacingOccurrences(of: " ", with: "-").lowercased())")
@@ -322,5 +331,11 @@ private struct SiteFooter: Component {
 extension Item {
     var groupedSorting: String {
         return "\(tags.contains("User Theme") ? 0 : 1) \(title)"
+    }
+}
+
+extension PublishingContext {
+    func occurances(ofTag tag: Tag) -> Int {
+        return self.sections.map({ $0.items(taggedWith: tag).count }).reduce(0, +)
     }
 }

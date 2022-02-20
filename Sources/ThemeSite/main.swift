@@ -110,7 +110,7 @@ try ThemeSite().publish(
             var error: PublishingError? = nil
             context.mutateAllSections { section in
                 section.mutateItems { item in
-                    let file_url = "\(item.title)/\(item.title).nnwtheme.zip"
+                    let file_url = "themes/\(item.title)/\(item.title).nnwtheme.zip"
                     let web_url = "https://nnw-themes.xyz/\(file_url)"
                     item.metadata.ziplink = web_url
                     item.metadata.themelink = "netnewswire://theme/add?url=\(web_url)"
@@ -132,23 +132,23 @@ try ThemeSite().publish(
             let allItems = context.sections.flatMap { $0.items }
             for item in allItems {
                 if item.isMixedTheme {
-                    if !resourceExists(at: "\(item.title)/\(item.title)-light.png") {
+                    if !resourceExists(at: "themes/\(item.title)/\(item.title)-light.png") {
                         throw PublishingError(
                             path: item.path,
-                            infoMessage: "Screenshot could not be located but was expected at Resources/\(item.title)/\(item.title)-light.png."
+                            infoMessage: "Screenshot could not be located but was expected at Resources/themes/\(item.title)/\(item.title)-light.png."
                         )
                     }
-                    if !resourceExists(at: "\(item.title)/\(item.title)-dark.png") {
+                    if !resourceExists(at: "themes/\(item.title)/\(item.title)-dark.png") {
                         throw PublishingError(
                             path: item.path,
-                            infoMessage: "Screenshot could not be located but was expected at Resources/\(item.title)/\(item.title)-dark.png."
+                            infoMessage: "Screenshot could not be located but was expected at Resources/themes/\(item.title)/\(item.title)-dark.png."
                         )
                     }
                 } else {
-                    if !resourceExists(at: "\(item.title)/\(item.title).png") {
+                    if !resourceExists(at: "themes/\(item.title)/\(item.title).png") {
                         throw PublishingError(
                             path: item.path,
-                            infoMessage: "Screenshot could not be located but was expected at Resources/\(item.title)/\(item.title).png."
+                            infoMessage: "Screenshot could not be located but was expected at Resources/themes/\(item.title)/\(item.title).png."
                         )
                     }
                 }

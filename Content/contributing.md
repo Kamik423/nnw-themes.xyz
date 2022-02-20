@@ -2,14 +2,14 @@
 
 ## Creating Your Own Theme
 
-Refer to the technote and the insanely well documented Promenade theme.
+Refer to [the technote](https://github.com/Ranchero-Software/NetNewsWire/blob/main/Technotes/Themes.md) and the insanely well documented [Promenade theme](/themes/Promenade).
 
 ## Submitting Your Own Theme
 
 Create a pull request with your theme on [the GitHub repo](https://github.com/Kamik423/NetNewsWire-Themes).
-Include the .nnwtheme-bundle as a zip and take screenshots of the same size in both light and dark mode (if applicable) in the `Resources/YourThemeName` directory.
+Include the .nnwtheme-bundle as a zip and take screenshots of the same size in both light and dark mode (if applicable) in the `Resources/themes/YourThemeName` directory.
 Make sure the spelling of your theme name is consistent, including capitalization.
-Match the format of the other themes by creating a MarkDown file in `Content`, matching this format:
+Match the format of the other themes by creating a MarkDown file in `Content/themes`, matching this format:
 
 ```
 ---
