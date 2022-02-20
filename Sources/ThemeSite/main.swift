@@ -25,6 +25,7 @@ struct ThemeSite: Website {
     var description = ""
     var language: Language { .english }
     var imagePath: Path? { nil }
+    var favicon: Favicon? { Favicon(path: "website-resources/favicon.png", type: "image/png") }
 }
 
 let default_theme_tag = "Default Theme"
