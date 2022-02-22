@@ -40,14 +40,40 @@ a {
     line-height: 40pt;
 }
 
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #222;
+        color: #ddd;
+    }
+}
+
+.wrapper {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 40px;
+    text-align: justify;
+}
+
+@media(max-width: 600px) {
+    .wrapper {
+        padding: 40px 20px;
+    }
+}
+
 /*        ___       __   ___  __
     |__| |__   /\  |  \ |__  |__)
     |  | |___ /~~\ |__/ |___ |  \   */
 
 header {
-    background-color: #eee;
+    background-color: #88e;
 }
 
+@media (prefers-color-scheme: dark) {
+    header {
+        background-color: #336;
+    }
+}
 header .wrapper {
     padding-top: 30px;
     padding-bottom: 30px;
@@ -58,10 +84,22 @@ header a {
     text-decoration: none;
 }
 
-header .site-name {
-    font-size: 1.5em;
-    color: #000;
-    font-weight: bold;
+header h1, header h2, header h3 {
+    margin: 0ex;
+    padding: 0ex;
+}
+
+header h3 {
+    font-size: 20px;
+    opacity: 30%;
+}
+
+header h1 {
+    font-size: 50px;
+}
+
+header h2 {
+    font-size: 30px;
 }
 
 nav {
@@ -76,24 +114,6 @@ nav li {
 
 nav li a.selected {
     text-decoration: underline;
-}
-
-/*                                   __   __          __
-     |\/|  /\  | |\ |     |\/|  /\  |__) / _` | |\ | /__`
-     |  | /~~\ | | \|     |  | /~~\ |  \ \__> | | \| .__/   */
-
-.wrapper {
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 40px;
-    text-align: left;
-}
-
-@media(max-width: 600px) {
-    .wrapper {
-        padding: 40px 20px;
-    }
 }
 
 /*           __   __
@@ -112,6 +132,46 @@ nav li a.selected {
     display: block;
     margin-bottom: 30px;
 }
+
+footer {
+    color: #8a8a8a;
+    margin-bottom: 2ex;
+}
+
+.about-pic {
+    width: 33%;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    float: right;
+}
+
+p:has(> .contributing-button) {
+    display: flex;
+    justify-content: center;
+}
+
+.contributing-button {
+    background: #292;
+    font-weight: bold;
+    margin: 1ex 0ex;
+    padding: 1ex;
+    border-radius: 1ex;
+    text-decoration: none;
+}
+.contributing-button:hover {
+    transition: all .1s ease-in-out;
+    filter: brightness(85%);
+}
+
+p:has(> .center-image) {
+    display: flex;
+    justify-content: center;
+}
+.center-image {
+    width: 33%;
+}
+
 
 /*        __  ___    __        ___                   __       ___
      /\  |__)  |  | /  ` |    |__     |     /\  \ / /  \ |  |  |
@@ -141,6 +201,21 @@ nav li a.selected {
 .item-list > li:last-child {
     margin-bottom: 0;
 }
+
+@media (prefers-color-scheme: dark) {
+    .item-list > li {
+        background-color: #333;
+    }
+
+    .item-list .article-headline {
+        background-color: #444;
+    }
+
+    .item-page .article-headline {
+        border-bottom-color: #444;
+    }
+}
+
 
 /*        __  ___    __        ___    ___   ___       ___
      /\  |__)  |  | /  ` |    |__      |  |  |  |    |__
@@ -210,11 +285,19 @@ pre:has(> code) {
     background-color: #eee;
     margin-bottom: 10px;
 }
+
 p > code {
     border-radius: 4px;
     padding: 1px;
     background-color: #eee;
 }
+
+@media (prefers-color-scheme: dark) {
+    pre:has(> code), p > code {
+        background-color: #333;
+    }
+}
+
 
 /*   __   __   __   ___  ___       __        __  ___  __
     /__` /  ` |__) |__  |__  |\ | /__` |__| /  \  |  /__`
@@ -336,43 +419,4 @@ p > code {
 }
 .tag-creator {
     background: darkorchid;
-}
-
-/*   __   __        __   __   __
-    /  ` /  \ |    /  \ |__) /__`
-    \__, \__/ |___ \__/ |  \ .__/   */
-
-footer {
-    color: #8a8a8a;
-}
-
-@media (prefers-color-scheme: dark) {
-    body {
-        background-color: #222;
-    }
-
-    body,
-    header .site-name {
-        color: #ddd;
-    }
-
-    .item-list > li {
-        background-color: #333;
-    }
-
-    .item-list .article-headline {
-        background-color: #444;
-    }
-
-    .item-page .article-headline {
-        border-bottom-color: #444;
-    }
-
-   pre:has(> code), p > code {
-        background-color: #333;
-    }
-
-    header {
-        background-color: #000;
-    }
 }

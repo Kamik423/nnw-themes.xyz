@@ -9,6 +9,7 @@ struct ThemeSite: Website {
         case themes
         case contributing
         case license
+        case about
     }
 
     struct ItemMetadata: WebsiteItemMetadata {
@@ -38,7 +39,7 @@ let light_modes = [mixed_theme_tag, dark_theme_tag, light_theme_tag]
 let all_tags = theme_modes + light_modes
 
 extension Tag {
-    var is_creator: Bool {
+    var isCreator: Bool {
         return !all_tags.contains(self.string)
     }
 }

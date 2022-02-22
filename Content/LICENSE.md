@@ -1,4 +1,9 @@
-# The MIT License (MIT)
+# License
+
+Some themes might include their own license.
+If not it is presumed to be licensed under the MIT license, as are the rest of the documents included in this repository.
+
+## The MIT License (MIT)
 
 Copyright © 2022 Hans Schülein, Theme Creators
 

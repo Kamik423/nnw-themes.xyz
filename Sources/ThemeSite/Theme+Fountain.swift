@@ -102,7 +102,7 @@ private struct FountainHTMLFactory<Site: Website>: HTMLFactory {
                     }
                     H2("Creators:")
                     Paragraph{
-                        List(page.tags.filter({$0.is_creator}).sorted()) { TagBadge(tag: $0, site: context.site, context: context )}.class("tag-list")
+                        List(page.tags.filter({$0.isCreator}).sorted()) { TagBadge(tag: $0, site: context.site, context: context )}.class("tag-list")
                     }
                 }
                 SiteFooter()
@@ -119,10 +119,10 @@ private struct FountainHTMLFactory<Site: Website>: HTMLFactory {
                 SiteHeader(context: context, selectedSelectionID: nil)
                 Wrapper {
                     H1 {
-                        Text("Created by ")
+                        Text(page.tag.isCreator ? "Created By " : "Tagged ")
                         TagBadge(tag: page.tag, site: context.site, context: context)
                     }
-                    if page.tag.is_creator && creatorUrl(for: page.tag.string) != nil {
+                    if page.tag.isCreator && creatorUrl(for: page.tag.string) != nil {
                         Span {
                             Link(url: creatorUrl(for: page.tag.string)!) {
                                LinkIcon().class("illustration-icon")
@@ -196,12 +196,15 @@ private struct SiteHeader<Site: Website>: Component {
     var body: Component {
         Header {
             Wrapper {
-                Link(context.site.name, url: "/")
-                    .class("site-name")
+                Link(url: "/") {
+                    H3("Unofficial Official")
+                    H1("NetNewsWire")
+                    H2("Themes Directory")
+                }.class("title")
 
-                if Site.SectionID.allCases.count > 1 {
-                    navigation
-                }
+                // if Site.SectionID.allCases.count > 1 {
+                //     navigation
+                // }
             }
         }
     }
@@ -292,7 +295,7 @@ private struct TagBadge<Site: Website>: Component {
     var body: Component {
         guard let site = site as? ThemeSite else { return Span { } }
         return Link(url: site.path(for: tag).absoluteString) {
-            if tag.is_creator {
+            if tag.isCreator {
                 Image(url: "/website-resources/creator.svg", description: "Creator").class("tag-icon")
             }
             Text(tag.string)
@@ -302,7 +305,7 @@ private struct TagBadge<Site: Website>: Component {
         }
             .class("tag")
             .class("tag-\(tag.string.replacingOccurrences(of: " ", with: "-").lowercased())")
-            .class(tag.is_creator ? "tag-creator" : "tag-style")
+            .class(tag.isCreator ? "tag-creator" : "tag-style")
     }
 }
 
@@ -322,6 +325,10 @@ private struct SiteFooter: Component {
                 Text(" • ")
                 Span {
                     Link("License", url: "/license")
+                }
+                Text(" • ")
+                Span {
+                    Link("About", url: "/about")
                 }
             }
         }
