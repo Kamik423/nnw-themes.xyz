@@ -1,5 +1,5 @@
 ---
-date: 2021-09-22 00:00
+date: 2022-04-23 00:00
 creator: @datafunk
 tags: User Theme, Dark Only
 link: https://github.com/datafunk/NNW-newsjunkie-theme
