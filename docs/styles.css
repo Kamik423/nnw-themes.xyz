@@ -153,6 +153,7 @@ p:has(> .contributing-button) {
 
 .contributing-button {
     background: #292;
+    color: #fff;
     font-weight: bold;
     margin: 1ex 0ex;
     padding: 1ex;
