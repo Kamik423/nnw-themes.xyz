@@ -289,7 +289,7 @@ pre:has(> code) {
 p > code {
     border-radius: 4px;
     padding: 1px;
-    background-color: #eee;
+    background-color: #3f3e3e;
 }
 
 @media (prefers-color-scheme: dark) {
