@@ -1,7 +1,7 @@
 ---
 date: 2022-02-04 00:00
 creator: Stuart Breckenridge
-tags: Default Theme, Dark Only
+tags: Default Theme, Dark Only, Monospace
 link: https://github.com/stuartbreckenridge/NewsFax
 ---
 
