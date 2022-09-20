@@ -1,7 +1,7 @@
 ---
 date: 2021-09-23 00:00
 creator: Stuart Breckenridge
-tags: Default Theme, Light and Dark
+tags: Default Theme, Light and Dark, Sans Serif
 link: https://github.com/stuartbreckenridge/NNWThemesPromenade
 ---
 

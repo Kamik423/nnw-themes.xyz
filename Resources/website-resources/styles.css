@@ -421,3 +421,13 @@ p > code {
 .tag-creator {
     background: darkorchid;
 }
+.tag-sans-serif {
+    font-family: sans-serif;
+}
+.tag-serif {
+    font-family: serif;
+}
+.tag-monospace {
+    font-family: monospace;
+}
+
