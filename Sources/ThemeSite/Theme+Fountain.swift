@@ -100,6 +100,10 @@ private struct FountainHTMLFactory<Site: Website>: HTMLFactory {
                     Paragraph{
                         List(page.tags.filter({light_modes.contains($0.string)}).sorted()) { TagBadge(tag: $0, site: context.site, context: context) }.class("tag-list")
                     }
+                    H2("Fonts:")
+                    Paragraph{
+                        List(page.tags.filter({font_modes.contains($0.string)}).sorted()) { TagBadge(tag: $0, site: context.site, context: context) }.class("tag-list")
+                    }
                     H2("Creators:")
                     Paragraph{
                         List(page.tags.filter({$0.isCreator}).sorted()) { TagBadge(tag: $0, site: context.site, context: context )}.class("tag-list")

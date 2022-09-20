@@ -423,11 +423,16 @@ p > code {
 }
 .tag-sans-serif {
     font-family: sans-serif;
+    background: white;
+    color: black;
 }
 .tag-serif {
     font-family: serif;
+    background: beige;
+    color: sienna;
 }
 .tag-monospace {
     font-family: monospace;
+    background: darkolivegreen;
+    color: white;
 }
-

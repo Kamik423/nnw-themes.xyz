@@ -36,7 +36,11 @@ let light_theme_tag = "Light Only"
 let dark_theme_tag = "Dark Only"
 let mixed_theme_tag = "Light and Dark"
 let light_modes = [mixed_theme_tag, dark_theme_tag, light_theme_tag]
-let all_tags = theme_modes + light_modes
+let sans_serif_theme_tag = "Sans Serif"
+let serif_theme_tag = "Serif"
+let monospaced_theme_tag = "Monospaced"
+let font_modes = [sans_serif_theme_tag, serif_theme_tag, monospaced_theme_tag]
+let all_tags = theme_modes + light_modes + font_modes
 
 extension Tag {
     var isCreator: Bool {
